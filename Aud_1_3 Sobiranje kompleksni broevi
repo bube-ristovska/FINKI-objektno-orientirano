@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<string.h>
+#define MAX 101
+
+struct kompleksen_broj{
+    float realen;
+    float imaginaren;
+};
+typedef struct kompleksen_broj kompleksen_broj;
+
+kompleksen_broj sobiranje(kompleksen_broj k1, kompleksen_broj k2){
+    kompleksen_broj k;
+    k.realen = k1.realen + k2.realen;
+    k.imaginaren = k1.imaginaren + k2.imaginaren;
+    return k;
+}
+
+kompleksen_broj odzemanje(kompleksen_broj k1, kompleksen_broj k2){
+    kompleksen_broj k;
+    k.realen = k1.realen - k2.realen;
+    k.imaginaren = k1.imaginaren - k2.imaginaren;
+    return k;
+}
+
+kompleksen_broj mnozhenje(kompleksen_broj k1, kompleksen_broj k2){
+    kompleksen_broj k;
+    k.realen = k1.realen * k2.realen - k1.imaginaren*k2.imaginaren;
+    k.imaginaren = k1.realen * k2.realen + k1.imaginaren*k2.imaginaren;
+    return k;
+}
+
+int main() {
+    kompleksen_broj k1;
+    kompleksen_broj k2;
+    scanf("%f %f", &k1.realen, &k1.imaginaren);
+    scanf("%f %f", &k2.realen, &k2.imaginaren);
+    kompleksen_broj k = sobiranje(k1,k2);
+    printf("Zbirot iznesuva %f %f", k.realen, k.imaginaren);
+    k = odzemanje(k1,k2);
+    printf("Razlikata iznesuva %f %f", k.realen, k.imaginaren);
+    k = mnozhenje(k1,k2);
+    printf("Proizvodot iznesuva %f %f", k.realen, k.imaginaren);
+    return 0;
+}
