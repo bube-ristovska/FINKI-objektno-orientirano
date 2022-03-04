@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#define MAX 100
+
+typedef struct student{
+    char name[20];
+    char surname[20];
+    int index;
+    int grade;
+
+
+}student;
+
+
+void bubble_sort(student a[], int n){
+    student temp;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n-1-i; j++){
+            if(a[j].grade < a[j+1].grade){
+                temp = a[j];
+                a[j] = a[j+1];
+                a[j+1] = temp;
+            }
+        }
+    }
+}
+
+int main(){
+    int n, a, b, c, d;
+    student s[MAX];
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++){
+        scanf("%s %s %d %d %d %d %d", &s[i].name, &s[i].surname, &s[i].index, &a, &b, &c, &d);
+        s[i].grade = a+b+c+d;
+        //prva bukva da e golema na ime i prezime
+        s[i].name[0] = toupper(s[i].name[0]);
+        s[i].surname[0] = toupper(s[i].surname[0]);
+    }
+
+    bubble_sort(s, n);
+    //printanje
+    for(int i = 0; i < n; i++){
+        printf("%s %s %d %d\n", s[i].name, s[i].surname, s[i].index, s[i].grade);
+    }
+}
