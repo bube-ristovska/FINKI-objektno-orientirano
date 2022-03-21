@@ -1,0 +1,96 @@
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
+#include <string.h>
+using namespace std;
+
+enum pozicija{
+    vraboten, direktor, sef //pazi ne treba ovde tocka zapirka !!!!
+};
+
+class Vraboten{
+private:
+    char ime[50];
+    int plata;
+    pozicija pos;
+public:
+    //konstruktor
+    Vraboten(){
+    }
+    //konstruktor
+    Vraboten(char *n, int s, pozicija p){
+     strcpy(ime, n);
+     plata = s;
+     pos = p;
+    }
+    //destruktor
+    ~Vraboten(){cout<<"Destructed"<<endl;}
+    //zemanje vrednosti ime
+    void setIme(char *n){
+    strcpy(ime, n);
+    }
+    //zemanje vrednosti plata
+    void setPlata(int s){
+    plata = s;
+    }
+    //zemanje vrednosti plata
+    void setPozicija(pozicija poz){
+    pos = poz;
+    }
+    //the wtf del shto ne go sfakjam se zema ama zoshto chudno e
+    char *getIme(){
+        return ime;
+    }
+    int getPlata(){
+        return plata;
+    }
+    pozicija getPozicija(){
+        return pos;
+    }
+
+
+
+};
+
+void bubble_sort(Vraboten y[], int n){
+    Vraboten temp;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n-i-1; j++){
+            if(y[i].getPlata() > y[i+1].getPlata()){
+                temp = y[i];
+                y[i] = y[i+1];
+                y[i+1] = temp;
+            }
+        }
+    }
+
+}
+
+
+int main(){
+    int N, salary, position;
+    char name[50];
+    cin >> N;
+    Vraboten X[N];
+    for(int i = 0; i < N; i++){
+        cout << "IME: ";
+        cin >> name;
+        cout << "Plata: ";
+        cin >> salary;
+        cout << "Pozicija: ";
+        cin >> position;
+
+
+        X[i].setIme(name);
+        X[i].setPlata(salary);
+        X[i].setPozicija(pozicija(position)); //kastirame od brojche vo pozicija
+    }
+
+    bubble_sort(X, N); //sortiranjeto
+
+    //printanje
+    for(int i = 0; i < N; i++){
+        cout << i+1 << ".  " << X[i].getIme()<< X[i].getPlata() << X[i].getPozicija() << endl;
+    }
+
+}
