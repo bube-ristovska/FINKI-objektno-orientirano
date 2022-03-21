@@ -1,0 +1,76 @@
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
+#include <string.h>
+using namespace std;
+
+class Email{
+private:
+    char from[50];
+    char to[50];
+    char body[1000];
+public:
+    //konstruktori
+    Email(){};
+    Email(char *f, char *t, char *b){
+    strcpy(from,f);
+    strcpy(to,t);
+    strcpy(body,b);
+    }
+    //destruktor
+    ~Email(){cout<< "DESTRUCT" << endl;}
+    //postavuvanje vrednosti set
+    void setFrom(char *f){
+        strcpy(from, f);
+    }
+    void setTo(char *t){
+        strcpy(to, t);
+    }
+    void setContent(char *b){
+        strcpy(body, b);
+    }
+    /*zemanje vrednosti get
+    char getFrom(char *f){
+        return from;
+    }
+    char getTo(char *t){
+        return to;
+    }
+    char getContent(char *b){
+        return body;
+    }*/
+      const char* getTo() { return to; }
+      const char* getFrom() { return from; }
+      const char* getBody() { return body; }
+
+    //printanje
+    void showBody(){
+      cout << "To: " << to << endl;
+      cout << "From: " << from << endl;
+      cout << "Body: " << body << endl;
+    }
+};
+
+bool checkValid(char *address){
+      int count = 0;
+      while (*address != 0)
+      if ('@' == *address++)
+      count++;
+      return (1 == count); //samo edno @ treba da ima
+}
+
+int main(){
+    char from[50], to[50], body[1000];
+      cout << "To: " << endl;
+      cin >> to;
+      if(checkValid(to)){
+          cout << "From: " << endl;
+          cin >> from;
+          cout << "Body: " << endl;
+          cin >> body;
+          Email X(from, to, body);
+          X.showBody();
+      }
+      else cout << "Email not valid" <<endl;
+//greshno pechati body
+}
