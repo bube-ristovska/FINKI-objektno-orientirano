@@ -1,0 +1,81 @@
+#include<cstring>
+using namespace std;
+
+class Ekipa{
+private:
+      int godina;
+      char ime[20];
+      char grad[20];
+public:
+      Ekipa(int godina = 0, char *ime = "", char *grad = "") {
+      this->godina = godina;
+      strcpy(this->ime, ime);
+      strcpy(this->grad, grad);
+
+      }
+      Ekipa(const Ekipa&e){
+          strcpy(this->ime, e.ime);
+          strcpy(this->grad, e.grad);
+          this->godina=e.godina;
+      }
+      char *get_ime(){return ime;}
+       void print(){cout<<ime<<" "<<grad<<endl;}
+};
+
+class Natprevar{
+private:
+    Ekipa domakin;
+    Ekipa gostin;
+    int golovi_domakin;
+    int golovi_gostin;
+public:
+    Natprevar(Ekipa domakin, Ekipa gostin, int golovi_domakin, int golovi_gostin){
+    this->domakin = domakin;
+    this->gostin = gostin;
+    this->golovi_domakin = golovi_domakin;
+    this->golovi_gostin = golovi_gostin;
+    }
+    Ekipa get_domakin(){return domakin;} //zemanje na objekti
+    Ekipa get_gostin(){return gostin;}
+    int get_golovi_domakin(){return golovi_domakin;}
+    int get_golovi_gostin(){return golovi_gostin;}
+};
+
+bool revans(Natprevar &n1, Natprevar &n2){//primanje objekti kako referenci vo funkcija mozhe da se izbrishe i &
+    if(strcmp(n1.get_domakin().get_ime(), n2.get_gostin().get_ime())==0
+       && strcmp(n1.get_gostin().get_ime(), n2.get_domakin().get_ime())==0){ //pazi na ova ima povikuanje na dve funkcii od razlicni klasi koi na kraj vrakjaat string
+    }return 1;
+    return 0;
+}
+
+Ekipa duel(Natprevar n1, Natprevar n2){
+    if(revans(n1,n2)){
+        int golovi_e1 = n1.get_golovi_domakin() + n2.get_golovi_gostin();
+        int golovi_e2 = n1.get_golovi_gostin() + n2.get_golovi_domakin();
+        if(golovi_e1 > golovi_e2){
+            return n1.get_domakin();
+        }
+        else if(golovi_e2 > golovi_e1){
+            return n1.get_gostin();
+        }
+        if(n1.get_golovi_gostin() > n2.get_golovi_gostin()){
+            return n1.get_gostin();
+        }
+        else if(n1.get_golovi_gostin()<n2.get_golovi_domakin()){
+            return n2.get_domakin();
+        }
+        }else{
+            cout<<"Natprevarite ne se sofpagjaat!"<<endl;
+            return 0;
+        }
+}
+
+ int main(){
+     Ekipa e1(1123,"Ekipa1", "Grad1");
+     Ekipa e2(1992,"Ekipa2", "Grad2");
+     Natprevar n1(e1, e2, 0, 1);
+     Natprevar n2(e2, e1, 0, 0);
+     cout << revans(n1,n2) <<endl;
+     duel(n1,n2).print();
+     return 0;//pazii na ova
+}
