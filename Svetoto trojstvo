@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+class String{
+private:
+    //dinamichki alocirana memorija
+    char *content;
+public:
+    //default,constructor so argumenti
+    String(char *content = ""){ //2in1 em default em argumenten konstruntor
+        this->content = new char[strlen(content)+1];
+        strcpy(this->content, content);
+    }
+
+    //copy constructor
+    String(const String & other){
+        this->content = new char [strlen(other.content)+1];
+        strcpy(this->content, other.content);
+    }
+    //destruktor
+    ~String{
+    delete [] content;
+    }
+    //operatorot =
+    String & operator = (const String & s){
+        if(this!=&s){//prevent self assigment
+            delete [] content;
+           //isto kako copy ama modificirano
+           this->content = new char [strlen(other.content)+1];
+           strcpy(this->content, s.content); //s.content
+        }
+    return *this;
+    }
+};
+
+int main() {
+
+
+    return 0;
+}
