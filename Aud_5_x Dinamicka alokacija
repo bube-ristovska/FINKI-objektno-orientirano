@@ -1,0 +1,82 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+//aud 5_3
+class Team{
+private:
+    char * name;
+    char * stadium;
+    char * city;
+    //vo private
+    void kopiraj(const Team & t){
+        //imeto
+        this->name = new char[strlen(name)+1];
+        strcpy(this->name, t.name);
+        //stadionot
+        this->stadium = new char[strlen(stadium)+1];
+        strcpy(this->stadium, t.stadium);
+        //gradot
+        this->city = new char [strlen(city)+1];
+        strcpy(this->city, t.city);
+    }
+
+    void freeMemory(){
+        delete[]name;
+        delete[]stadium;
+        delete[]city;
+    }
+
+public:
+    //2in1 constructor so dinamicki alocirani
+    Team(char *name="", char *stadium="", char *city=""){
+        //imeto
+        this->name = new char[strlen(name)+1];
+        strcpy(this->name, name);
+        //stadionot
+        this->stadium = new char[strlen(stadium)+1];
+        strcpy(this->stadium, stadium);
+        //gradot
+        this->city = new char [strlen(city)+1];
+        strcpy(this->city, city);
+    }
+
+    //copy-constructor bukv isti kako 2in1 constr ama t.name
+    Team(const Team &t){
+        kopiraj(t);
+    }
+
+    //operatorot =
+    Team &operator=(const Team &t){
+        if(this!= &t){ //ne zaboravaj & ovde
+            freeMemory();
+            kopiraj(t);
+        }
+        return *this;
+    }
+
+    void print(){
+    cout << "Team name: "<<name<<" which plays on stadium: "<<stadium<<" in the city:"<<city<<endl;
+    }
+};
+
+int main() {
+    int n;
+    cin>>n;
+    Team *teams = new Team[n]; //ako nema default definirano tuka kje padne
+
+    char name[100];
+    char stadium[100];
+    char city[100];
+
+    for(int i = 0; i < n; i++){
+        cin >> name >> stadium >> city;
+        teams[i] = Team(name, stadium, city); //bez operator = kje padne programata
+    }
+
+    for(int i = 0; i < n; i++){
+        teams[i].print();
+    }
+
+
+    return 0;
+}
